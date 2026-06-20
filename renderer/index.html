@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ── Timer view ── -->
+  <div class="view" id="timer-view">
+
+    <!-- Standard mode: session tabs -->
+    <div class="tabs" id="tabs-row">
+      <button class="tab active" data-session="focus">Focus</button>
+      <button class="tab" data-session="short">Short Break</button>
+      <button class="tab" data-session="long">Long Break</button>
+    </div>
+
+    <!-- Schedule mode: step indicator -->
+    <div class="sched-progress-row" id="sched-progress-row">
+      <button class="btn ghost-btn small" id="exit-sched-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Exit
+      </button>
+      <div class="step-indicator">Step <span id="step-num">1</span> of <span id="step-total">4</span></div>
+      <div style="width:56px"></div>
+    </div>
+
+    <div class="ring-wrap">
+      <svg class="ring" viewBox="0 0 220 220">
+        <circle class="ring-track" cx="110" cy="110" r="90"/>
+        <circle class="ring-progress" cx="110" cy="110" r="90" id="ring"/>
+      </svg>
+      <div class="time-center">
+        <div class="time" id="time">25:00</div>
+        <div class="mode" id="mode">Focus</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn icon-btn" id="reset-btn" title="Reset">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+      </button>
+      <button class="btn play-btn" id="play-btn">
+        <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button class="btn icon-btn" id="skip-btn" title="Skip to next">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="footer">
+      <div class="pomo-count" id="pomo-count">🍅 0 / 4</div>
+      <div class="footer-actions">
+        <button class="btn ghost-btn" id="schedule-btn" title="Custom schedule">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+        </button>
+        <button class="btn ghost-btn" id="settings-btn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Settings view ── -->
+  <div class="view hidden" id="settings-view">
+    <div class="page-header">
+      <button class="btn ghost-btn" id="back-settings-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h2>Settings</h2>
+      <div style="width:32px"></div>
+    </div>
+
+    <div class="page-body">
+      <div class="setting-row">
+        <label>Focus duration</label>
+        <div class="slider-group">
+          <input type="range" id="s-focus" min="1" max="60" value="25">
+          <span class="val" id="v-focus">25 min</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Short break</label>
+        <div class="slider-group">
+          <input type="range" id="s-short" min="1" max="30" value="5">
+          <span class="val" id="v-short">5 min</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Long break</label>
+        <div class="slider-group">
+          <input type="range" id="s-long" min="5" max="60" value="15">
+          <span class="val" id="v-long">15 min</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Rounds until long break</label>
+        <div class="slider-group">
+          <input type="range" id="s-rounds" min="2" max="8" value="4">
+          <span class="val" id="v-rounds">4</span>
+        </div>
+      </div>
+      <div class="setting-row toggle-row">
+        <label>Notifications</label>
+        <label class="toggle">
+          <input type="checkbox" id="s-notif" checked>
+          <span class="track"></span>
+        </label>
+      </div>
+      <div class="setting-row toggle-row">
+        <label>Sound on complete</label>
+        <label class="toggle">
+          <input type="checkbox" id="s-sound" checked>
+          <span class="track"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>Ding count</label>
+        <div class="slider-group">
+          <input type="range" id="s-beeps" min="1" max="10" value="3">
+          <span class="val" id="v-beeps">3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Schedule view ── -->
+  <div class="view hidden" id="schedule-view">
+    <div class="page-header">
+      <button class="btn ghost-btn" id="back-sched-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h2>Schedule</h2>
+      <div style="width:32px"></div>
+    </div>
+
+    <!-- Auto-advance toggle -->
+    <div class="setting-row toggle-row auto-advance-row">
+      <div>
+        <div class="toggle-label">Auto-advance</div>
+        <div class="toggle-sub">Start next step automatically</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="s-auto">
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <!-- Segment list -->
+    <div class="sched-list" id="sched-list"></div>
+
+    <!-- Add + Start -->
+    <div class="sched-actions">
+      <button class="btn add-btn" id="add-seg-btn">+ Add step</button>
+      <button class="btn start-sched-btn" id="start-sched-btn">Start ▶</button>
+    </div>
+  </div>
+
+</div>
+<script src="renderer.js"></script>
+</body>
+</html>
