@@ -15,10 +15,35 @@ A macOS menu bar Pomodoro timer built with Electron. Sits quietly in your menu b
 ## Requirements
 
 - macOS 11 or later
-- [Node.js](https://nodejs.org) v18 or later
-- npm (comes with Node.js)
+- Node.js v18 or later (includes npm)
 
 ## Installation on a new Mac
+
+### Step 1 — Install Node.js (if you don't have it)
+
+**Option A — Official installer (easiest):**
+1. Go to [nodejs.org](https://nodejs.org)
+2. Download the **LTS** version (the big green button)
+3. Open the downloaded `.pkg` file and follow the installer
+4. When it finishes, open **Terminal** and verify it worked:
+   ```bash
+   node --version   # should print v18.x.x or higher
+   npm --version    # should print a version number
+   ```
+
+**Option B — Homebrew (if you already use it):**
+```bash
+brew install node
+```
+
+> Don't have Homebrew either? Install it first:
+> ```bash
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+> ```
+
+---
+
+### Step 2 — Clone and run the app
 
 ```bash
 # 1. Clone the repo
