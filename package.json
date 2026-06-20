@@ -1,6 +1,6 @@
 {
   "name": "pomodoro-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "macOS menu bar Pomodoro timer",
   "main": "main.js",
   "scripts": {

@@ -29,7 +29,9 @@ const st = {
   scheduleStep: 0,
 };
 
-let ticker = null;
+let ticker      = null;
+let tickerStart = null; // Date.now() when the current run began
+let tickerBase  = null; // secondsLeft at that moment
 
 // ── DOM refs ──────────────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -152,7 +154,18 @@ function advance() {
 }
 
 // ── Ticker ────────────────────────────────────────────────────────────────────
+function startTicker() {
+  tickerStart = Date.now();
+  tickerBase  = st.secondsLeft;
+  ticker = setInterval(onTick, 500); // poll at 2× rate; wall-clock keeps it accurate
+}
+
 function onTick() {
+  const elapsed = Math.floor((Date.now() - tickerStart) / 1000);
+  const next    = Math.max(0, tickerBase - elapsed);
+  if (next === st.secondsLeft) return; // no visible change yet
+  st.secondsLeft = next;
+
   if (st.secondsLeft <= 0) {
     clearInterval(ticker); ticker = null;
     st.running = false;
@@ -161,12 +174,9 @@ function onTick() {
     advance();
     if (cfg.autoAdvance) {
       st.running = true;
-      ticker = setInterval(onTick, 1000);
+      startTicker();
     }
-    render();
-    return;
   }
-  st.secondsLeft--;
   render();
 }
 
@@ -177,7 +187,7 @@ function togglePlay() {
     st.running = false;
   } else {
     st.running = true;
-    ticker = setInterval(onTick, 1000);
+    startTicker();
   }
   render();
 }
