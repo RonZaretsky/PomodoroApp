@@ -24,7 +24,11 @@ Go to the [Releases page](https://github.com/RonZaretsky/PomodoroApp/releases/la
 1. Open the DMG and drag **Pomodoro** into your Applications folder
 2. Launch it from Applications — the icon appears in your menu bar
 
-> **"App can't be opened" warning?** Right-click the app → **Open** → **Open**. You only need to do this once. This happens because the app is unsigned (no Apple Developer certificate).
+> **"App is damaged" or "can't be opened" warning?** macOS quarantines apps downloaded from the internet. After dragging to Applications, run this once in Terminal:
+> ```bash
+> xattr -cr /Applications/Pomodoro.app
+> ```
+> Then launch normally. This happens because the app is unsigned (no Apple Developer certificate).
 
 ---
 
