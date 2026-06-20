@@ -12,6 +12,24 @@ A macOS menu bar Pomodoro timer built with Electron. Sits quietly in your menu b
 - **Ding sound** — configurable 1–10 dings on completion
 - **Persistent settings** — all preferences saved locally
 
+## Download (no Node.js needed)
+
+Go to the [Releases page](https://github.com/RonZaretsky/PomodoroApp/releases/latest) and download the right DMG for your Mac:
+
+| Mac | File |
+|---|---|
+| Apple Silicon (M1/M2/M3/M4) | `Pomodoro-1.0.0-Apple-Silicon.dmg` |
+| Intel | `Pomodoro-1.0.0-Intel.dmg` |
+
+1. Open the DMG and drag **Pomodoro** into your Applications folder
+2. Launch it from Applications — the icon appears in your menu bar
+
+> **"App can't be opened" warning?** Right-click the app → **Open** → **Open**. You only need to do this once. This happens because the app is unsigned (no Apple Developer certificate).
+
+---
+
+## Build from source
+
 ## Requirements
 
 - macOS 11 or later

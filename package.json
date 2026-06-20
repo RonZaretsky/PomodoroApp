@@ -4,9 +4,28 @@
   "description": "macOS menu bar Pomodoro timer",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "node build-icon.js && electron-builder --mac dmg"
   },
   "devDependencies": {
-    "electron": "latest"
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.ronzaretsky.pomodoro",
+    "productName": "Pomodoro",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.png",
+      "identity": null,
+      "target": [{ "target": "dmg", "arch": ["universal"] }],
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    },
+    "dmg": {
+      "title": "Pomodoro",
+      "window": { "width": 540, "height": 380 }
+    }
   }
 }
